@@ -70,14 +70,3 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-
-
-// struct  hostent {
-//         char    FAR * h_name;           /* official name of host */
-//         char    FAR * FAR * h_aliases;  /* alias list */
-//         short   h_addrtype;             /* host address type */
-//         short   h_length;               /* length of address */
-//         char    FAR * FAR * h_addr_list; /* list of addresses */
-// #define h_addr  h_addr_list[0]          /* address, for backward compat */
-// };
-
