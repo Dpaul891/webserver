@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ubuntu/code/webserver/src/server.cpp
+stdio.h
+-
+string.h
+-
+unistd.h
+-
+stdlib.h
+-
+netdb.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+arpa/inet.h
+-
+iostream
+-
+
