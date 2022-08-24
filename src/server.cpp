@@ -27,7 +27,8 @@ int main(int argc, char *argv[]){
     struct sockaddr_in servaddr;
     memset(&servaddr, 0, sizeof(servaddr));
     servaddr.sin_family = AF_INET;
-    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+    servaddr.sin_addr.s_addr = htonl(INADDR_ANY); //任意ip地址
+    //servaddr.sin_addr.s_addr = inet_addr("192.168.190.134"); // 指定ip地址。
     servaddr.sin_port = htons(atoi(argv[1]));
     if(bind(listenfd, (struct sockaddr *)&servaddr, sizeof(servaddr)) != 0){
         perror("bind");
@@ -55,7 +56,7 @@ int main(int argc, char *argv[]){
         memset(buffer, 0, sizeof(buffer));
         int iret = recv(clientfd, buffer, sizeof(buffer), 0);
         if(iret <= 0){
-            perror("receive");
+            cout << "iret=" << iret << endl;
             break;
         }
         cout << "已接收: " << buffer << endl;

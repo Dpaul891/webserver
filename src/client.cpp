@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 
     char buffer[1024];
     // 第3步: 与服务端通信，发送一个报文后等待回复，然后再发下一个报文
-    for(int i=0; i<100; i++){
+    for(int i=0; i<10; i++){
         memset(buffer, 0, sizeof(buffer));
         sprintf(buffer, "这是第%d条消息", i + 1);
         int iret = send(sockfd, buffer, strlen(buffer), 0);
@@ -62,7 +62,6 @@ int main(int argc, char *argv[])
             break;
         }
         cout << "已接收: " << buffer << endl;
-        sleep(1);
     }
 
     // 第4步: 关闭socket, 释放资源
