@@ -263,5 +263,19 @@
     #include <arpa/inet.h>	// 提供inet_ntoa()
     char *inet_ntoa(struct in_addr in);
     ```
+- `inet_addr`
 
-    
+    ```c++
+    #inet_addr的功能是将一个ip地址字符串转换成一个整数值。
+    ```
+- `INADDR_ANY` 
+
+    ```c++
+    #原型，即表示0.0.0.0转换成长整型
+    #define INADDR_ANY  ((in_addr_t) 0x00000000) 
+
+    80      0.0.0.0          //INADDR_ANY,外部的client ask 从哪个server的地址进来都可以连接到80端口.
+    8088    192.168.1.11     //外部的client ask 从server地址192.168.1.11进来才可以连接到8088端口.
+    8089    192.168.1.12     //外部的client ask 从server地址192.168.1.12进来才可以连接到8089端口.
+    ```
+- 在`listen`函数之后，客户端就可以连接了，并不是等到`accept`才可以连接
