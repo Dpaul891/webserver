@@ -11,5 +11,5 @@ include_directories(include)
 aux_source_directory(./src DIR_SRCS)
 
 # 所有需要编译的可执行文件
-add_executable(client src/client.cpp)
-add_executable(server src/server.cpp)
+add_executable(client src/client.cpp src/warp.cpp)
+add_executable(server src/server.cpp src/warp.cpp)

@@ -6,6 +6,8 @@
 
 #IncludeRegexTransform: 
 
+../include/warp.h
+
 /home/ubuntu/code/webserver/src/client.cpp
 stdio.h
 -
@@ -27,4 +29,20 @@ iostream
 -
 typeinfo
 -
+warp.h
+/home/ubuntu/code/webserver/src/warp.h
+
+/home/ubuntu/code/webserver/src/warp.cpp
+stdlib.h
+-
+stdio.h
+-
+unistd.h
+-
+errno.h
+-
+sys/socket.h
+-
+warp.h
+/home/ubuntu/code/webserver/src/warp.h
 

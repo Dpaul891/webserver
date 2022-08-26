@@ -190,6 +190,36 @@ src/server.cpp.s:
 	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/server.cpp.s
 .PHONY : src/server.cpp.s
 
+src/warp.o: src/warp.cpp.o
+
+.PHONY : src/warp.o
+
+# target to build an object file
+src/warp.cpp.o:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/warp.cpp.o
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/warp.cpp.o
+.PHONY : src/warp.cpp.o
+
+src/warp.i: src/warp.cpp.i
+
+.PHONY : src/warp.i
+
+# target to preprocess a source file
+src/warp.cpp.i:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/warp.cpp.i
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/warp.cpp.i
+.PHONY : src/warp.cpp.i
+
+src/warp.s: src/warp.cpp.s
+
+.PHONY : src/warp.s
+
+# target to generate assembly for a file
+src/warp.cpp.s:
+	$(MAKE) -f CMakeFiles/server.dir/build.make CMakeFiles/server.dir/src/warp.cpp.s
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/src/warp.cpp.s
+.PHONY : src/warp.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -206,6 +236,9 @@ help:
 	@echo "... src/server.o"
 	@echo "... src/server.i"
 	@echo "... src/server.s"
+	@echo "... src/warp.o"
+	@echo "... src/warp.i"
+	@echo "... src/warp.s"
 .PHONY : help
 
 
