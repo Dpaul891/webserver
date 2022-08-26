@@ -12,7 +12,6 @@ ssize_t Write(int fd, const void *ptr, size_t nbytes);
 int Close(int fd);
 ssize_t Readn(int fd, void *vptr, size_t n);
 ssize_t Writen(int fd, const void *vptr, size_t n);
-ssize_t my_read(int fd, char *ptr);
 ssize_t Readline(int fd, void *vptr, size_t maxlen);
 ssize_t Recv(int sockfd, void *buf, size_t len, int flags);
 ssize_t Send(int sockfd, const void *buf, size_t len, int flags);
