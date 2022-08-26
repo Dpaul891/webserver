@@ -111,7 +111,7 @@
         - addr用于存放客户端的地址信息，用sockaddr结构体表达，如果不需要客户端的地址，可以填0。
         - addrlen用于存放addr参数的长度，如果addr为0，addrlen也填0。
 
-    - accept函数等待客户端的连接，如果没有客户端连上来，它就一直等待，这种方式称之为**阻塞**。
+    - accept函数等待客户端的连接，如果没有客户端连上来，它就一直等待，这种方式称之为**阻塞**。从已准备好的连接队列中获取一个请求。
 
     - accept等待到客户端的连接后，创建一个新的socket，函数返回值就是这个新的socket，服务端使用这个新的socket和客户端进行报文的收发。
 
@@ -179,7 +179,7 @@
 
 - `gethostbyname`
 
-    - 把ip地址或域名转换为hostent 结构体表达的地址。
+    - 把**ip地址或域名**转换为hostent 结构体表达的地址。
 
     ```c++
     #头文件
@@ -252,9 +252,11 @@
         - 程序员应使用sockaddr_in来表示地址，sockaddr_in区分了地址和端口，使用更方便。
         - 程序员把类型、ip地址、端口填充sockaddr_in结构体，然后强制转换成sockaddr，作为参数传递给系统调用函数
 
-- `inet_ntoa`
+- `inet_ntoa`和`inet_aton`; `inet_ntop`和`inet_pton`
+    - inet_aton、inet_ntoa、inet_pton和inet_ntop都是用于IP地址与大端网络字节序二进制数字相互转换的函数,不同的是inet_aton和inet_ntoa只支持ipv4类型的地址转换，而inet_pton和inet_ntop支持ipv4和ipv6类型的地址转换
 
-    - 将一个用in参数所表示的Internet地址结构转换成以“.” 间隔的诸如“a.b.c.d”的字符串形式。
+    - `inet_ntoa`将一个用in参数所表示的Internet地址结构转换成以“.” 间隔的诸如“a.b.c.d”的字符串形式。
+    - `inet_aton`将形如“192.168.1.1"类型的点分十进制ip转换成二进制，并存放在struct in_addr中
 
     ```c++
     #函数原型
@@ -262,11 +264,21 @@
     #include <netinet/in.h>	// 提供struct in_addr
     #include <arpa/inet.h>	// 提供inet_ntoa()
     char *inet_ntoa(struct in_addr in);
+
+    int inet_aton(const char *cp, struct in_addr *inp);
+
+    #include <arpa/inet.h>
+	int inet_pton(int af, const char *src, void *dst);
+	const char *inet_ntop(int af, const void *src, char *dst, socklen_t size);
+    #af：AF_INET、AF_INET6
+	#src：传入，IP地址（点分十进制）
+	#dst：传出，转换后的 网络字节序的 IP地址。 
+
     ```
 - `inet_addr`
 
     ```c++
-    #inet_addr的功能是将一个ip地址字符串转换成一个整数值。
+    #inet_addr的功能是将一个ip地址字符串转换成一个整数值。 和inet_aton功能类似
     ```
 - `INADDR_ANY` 
 
@@ -279,3 +291,7 @@
     8089    192.168.1.12     //外部的client ask 从server地址192.168.1.12进来才可以连接到8089端口.
     ```
 - 在`listen`函数之后，客户端就可以连接了，并不是等到`accept`才可以连接
+- listen的socket队列
+
+    - 内核会为listen状态的socket维护两个队列：不完全连接请求队列(SYN_RECV状态)和等待accept建立socket的队列(ESTABLISHED状态)；
+    - Linux2.2之后，backlog值为等待accept建立socket的队列长度

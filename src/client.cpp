@@ -7,6 +7,8 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <iostream>
+#include <typeinfo>
+
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -47,7 +49,7 @@ int main(int argc, char *argv[])
     // 第3步: 与服务端通信，发送一个报文后等待回复，然后再发下一个报文
     for(int i=0; i<10; i++){
         memset(buffer, 0, sizeof(buffer));
-        sprintf(buffer, "这是第%d条消息", i + 1);
+        sprintf(buffer, "this");
         int iret = send(sockfd, buffer, strlen(buffer), 0);
         if(iret <= 0){
             perror("send");
