@@ -9,9 +9,15 @@
 #include <iostream>
 #include <ctype.h>
 #include <signal.h>
+#include <sys/wait.h>
 #include <pthread.h>
 #include "warp.h"
 using namespace std;
+
+void catch_child(int signum){
+    while(waitpid(0, nullptr, WNOHANG) > 0){};
+    return;
+}
 
 int main(int argc, char *argv[]){
     if(argc != 2){
@@ -22,7 +28,7 @@ int main(int argc, char *argv[]){
 
     int listenfd, clientfd;
     pid_t pid;
-    
+
     //第1步: 创建服务端的socket
     listenfd = Socket(AF_INET, SOCK_STREAM, 0);
 
@@ -59,6 +65,15 @@ int main(int argc, char *argv[]){
             break;
         }
         else{
+            //注册新号捕捉函数
+            struct sigaction act;
+            act.sa_handler = catch_child;
+            sigemptyset(&act.sa_mask);
+            act.sa_flags = 0;
+            int ret = sigaction(SIGCHLD, &act, nullptr);
+            if(ret != 0){
+                perr_exit("sigaction error");
+            }
             close(clientfd);
             continue;
         }
