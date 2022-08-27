@@ -53,6 +53,7 @@ int main(int argc, char *argv[])
             break;
         }
         cout << "Received: " << buffer << endl;
+        sleep(3);
     }
 
     // 第4步: 关闭socket, 释放资源
