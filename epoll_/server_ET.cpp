@@ -10,6 +10,7 @@
 #include <ctype.h>
 #include <poll.h>
 #include <sys/epoll.h>
+#include <fcntl.h>
 #include "warp.h"
 using namespace std;
 
@@ -58,6 +59,10 @@ int main(int argc, char *argv[]){
     clientfd = Accept(listenfd, (struct sockaddr *)&clientaddr, (socklen_t *)&socklen);
     printf("客户端(%s)已连接\n", inet_ntoa(clientaddr.sin_addr));
     
+    int flag = fcntl(clientfd, F_GETFL);
+    flag |= O_NONBLOCK;
+    fcntl(clientfd, F_SETFL, flag);
+
     tmp.data.fd = clientfd;
     res = epoll_ctl(epfd, EPOLL_CTL_ADD, clientfd, &tmp);
     if(res == -1)
@@ -68,8 +73,10 @@ int main(int argc, char *argv[]){
             perr_exit("epoll_wait error");
         if(ep[0].data.fd == clientfd){
             memset(buffer, 0, sizeof(buffer));
-            int iret = Recv(clientfd, buffer, MAXLINE / 2, 0);
-            cout << buffer << endl;
+            int iret;
+            while(iret = recv(clientfd, buffer, MAXLINE / 2, 0) > 0){
+                cout << buffer << endl;
+            }
         }
     }
 
