@@ -100,4 +100,5 @@ int main(int argc, char *argv[]){
 
     //第6步: 关闭socket, 释放资源
     close(listenfd);
+    Close(epfd);
 }
